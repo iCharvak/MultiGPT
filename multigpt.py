@@ -1,6 +1,6 @@
 import streamlit as st
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_openai import OpenAI
+from langchain.llms import OpenAI
 from langchain.schema import HumanMessage, AIMessage
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
@@ -112,6 +112,10 @@ def summarize_conversation(openai_api_key, conversation_text):
     """Summarize conversation using OpenAI and get sentiment"""
     try:
         # Setup OpenAI LLM
+        import openai
+        openai.api_key = openai_api_key
+        
+        # Create LLM instance
         llm = OpenAI(
             openai_api_key=openai_api_key,
             temperature=0.3,
